@@ -48,10 +48,10 @@ function ViewCrime(props) {
     const fetchData = async () => {
       const result = await axios(
         //"http://127.0.0.1:8001/api/blotter/" + props.match.params.crime_id
-        "https://police-api.herokuapp.com/api/blotter/"
+        "https://police-api.herokuapp.com/api/blotter/" + props.match.params.crime_id
       );
       setData(result.data);
-      alert(JSON.stringify(result.data))
+      //alert(JSON.stringify(result.data))
     };
     fetchData();
   }, []);
@@ -66,7 +66,6 @@ function ViewCrime(props) {
             <h2>Crime Report</h2>
             <br/>
             <br/>
-            {JSON.stringify(props.match.params.crime_id)}
             <br/>
             Datetime
             <br/>

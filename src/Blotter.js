@@ -80,6 +80,9 @@ export default function Blotter() {
                       <TableCell component="th" scope="row">
                         {report.crime_type}
                       </TableCell>
+                      <TableCell component="th" scope="row">
+                        {report.report_datetime}
+                      </TableCell>
                     </TableRow>
                   )}
               </TableBody>
