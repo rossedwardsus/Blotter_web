@@ -69,8 +69,8 @@ export default function Blotter() {
               <TableHead>
                 <TableRow>
                   <TableCell>Crime Datetime</TableCell>
-                  <TableCell>Crime Category</TableCell>
-                  <TableCell align="right">Date</TableCell>
+                  <TableCell>Crime Type</TableCell>
+                  <TableCell align="right">Report Datetime</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -78,7 +78,7 @@ export default function Blotter() {
                     <TableRow key={"item.description"}>
                       <TableCell align="right"><Link to={"/blotter/" + report.report_id}>{report.crime_datetime}</Link></TableCell>
                       <TableCell component="th" scope="row">
-                        {report.crime_category}
+                        {report.crime_type}
                       </TableCell>
                     </TableRow>
                   )}
