@@ -131,30 +131,6 @@ function ReportCrime(props) {
               <br/>
              <FormControl className={classes.formControl}>
                <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                 <KeyboardDatePicker
-                    disableToolbar
-                    variant="inline"
-                    format="MM/dd/yyyy"
-                    margin="normal"
-                    id="date-picker-inline"
-                    label=""
-                    value={crimeDateTime}
-                    onChange={handleDateTimeChange}
-                    KeyboardButtonProps={{
-                      'aria-label': 'change date',
-                    }}
-                  />
-                <br/>
-                <KeyboardTimePicker
-                  margin="normal"
-                  id="time-picker"
-                  label=""
-                  value={crimeDateTime}
-                  onChange={handleDateTimeChange}
-                  KeyboardButtonProps={{
-                    'aria-label': 'change time',
-                  }}
-                />
                 <DateTimePicker
                   label="DateTimePicker"
                   inputVariant="outlined"
@@ -168,7 +144,7 @@ function ReportCrime(props) {
               <TextField
                 multiline
                 id="standard-name"
-                label="Description"
+                label="Address"
                 value={crime_address}
                 onChange={(e) => setCrimeAddress(e.target.value)}
                 margin="normal"
