@@ -116,14 +116,13 @@ function ReportCrime(props) {
                   <br/>
                   <br/>
                   <DateTimePicker
-                    label="DateTimePicker"
+                    label="Datetime of Crime"
                     inputVariant="outlined"
                     value={crimeDateTime}
                     onChange={handleDateTimeChange}
                   />
                 </MuiPickersUtilsProvider>
               </FormControl>
-              <br/>
               <br/>
               <br/>
               <br/>
