@@ -39,7 +39,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function ViewCrime(props) {
+function ViewCrime(props) {
 
   const classes = useStyles();
   const [data, setData] = useState([]);
@@ -47,11 +47,11 @@ export default function ViewCrime(props) {
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios(
-        "http://127.0.0.1:8001/api/blotter/" + props.params.crime_id
-        //"https://police-api.herokuapp.com/api/blotter/"
+        //"http://127.0.0.1:8001/api/blotter/" + props.match.params.crime_id
+        "https://police-api.herokuapp.com/api/blotter/"
       );
-      //setData(result.data);
-      //alert(JSON.stringify(result.data))
+      setData(result.data);
+      alert(JSON.stringify(result.data))
     };
     fetchData();
   }, []);
@@ -63,11 +63,29 @@ export default function ViewCrime(props) {
             <br/>
             <br/>
             <br/>
-            <h2>Blotter</h2>
+            <h2>Crime Report</h2>
             <br/>
             <br/>
-            
-            </Table>
+            {JSON.stringify(props.match.params.crime_id)}
+            <br/>
+            Datetime
+            <br/>
+            {data.report_datetime}
+            <br/>
+            <br/>
+            Address
+            <br/>
+            {data.crime_address}
+            <br/>
+            <br/>
+            Type
+            <br/>
+            {data.crime_type}
+            <br/>
+            <br/>
+            Description
+            <br/>
+            {data.crime_description}
             </div>)
 }
 

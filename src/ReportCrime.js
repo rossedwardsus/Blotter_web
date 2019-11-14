@@ -56,7 +56,7 @@ function ReportCrime(props) {
   const [crimeDateTime, setCrimeDateTime] = useState(new Date())
   const [crime_type, setCategoryType] = useState("")
   const [crime_description, setCrimeDescription] = useState("")
-  const [crimeAddress, setCrimeAddress] = useState("")
+  const [crime_address, setCrimeAddress] = useState("")
 
   const reportCrime = () => {
 
@@ -70,6 +70,7 @@ function ReportCrime(props) {
     //axios.post('http://127.0.0.1:8001/api/blotter/', {
       crime_type: crime_type,
       crime_description: crime_description,
+      crim_address: crime_address,
       crime_datetime: crimeDateTime.getUTCFullYear() + "-" + (crimeDateTime.getUTCMonth()+1) + "-" + crimeDateTime.getUTCDate() + " " + crimeDateTime.getUTCHours() + ":" + crimeDateTime.getUTCMinutes() + ":" + crimeDateTime.getUTCSeconds()
     })
     .then(function (response) {
