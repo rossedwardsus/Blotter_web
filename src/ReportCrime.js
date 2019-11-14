@@ -61,7 +61,7 @@ function ReportCrime(props) {
   const reportCrime = () => {
 
     //alert(crimeDateTime.toISOString());
-    alert(crimeDateTime.getUTCFullYear() + "-" + (crimeDateTime.getUTCMonth()+1) + "-" + crimeDateTime.getUTCDate() + " " + crimeDateTime.getUTCHours() + ":" + crimeDateTime.getUTCMinutes() + ":" + crimeDateTime.getUTCSeconds());
+    //alert(crimeDateTime.getUTCFullYear() + "-" + (crimeDateTime.getUTCMonth()+1) + "-" + crimeDateTime.getUTCDate() + " " + crimeDateTime.getUTCHours() + ":" + crimeDateTime.getUTCMinutes() + ":" + crimeDateTime.getUTCSeconds());
 
     //var datetime = "";
 
@@ -70,18 +70,18 @@ function ReportCrime(props) {
     //axios.post('http://127.0.0.1:8001/api/blotter/', {
       crime_type: crime_type,
       crime_description: crime_description,
-      crim_address: crime_address,
+      crime_address: crime_address,
       crime_datetime: crimeDateTime.getUTCFullYear() + "-" + (crimeDateTime.getUTCMonth()+1) + "-" + crimeDateTime.getUTCDate() + " " + crimeDateTime.getUTCHours() + ":" + crimeDateTime.getUTCMinutes() + ":" + crimeDateTime.getUTCSeconds()
     })
     .then(function (response) {
       console.log(response);
-      alert(JSON.stringify(response))
+      //alert(JSON.stringify(response))
 
-      //props.history.push("/blotter");
+      props.history.push("/blotter");
     })
     .catch(function (error) {
       console.log(error);
-      alert(error);
+      //alert(error);
     });
 
     /*axios({
@@ -96,7 +96,7 @@ function ReportCrime(props) {
   }
 
   const handleDateTimeChange = date => {
-    alert(date);
+    //alert(date);
 
     setCrimeDateTime(date);
   };
@@ -109,7 +109,23 @@ function ReportCrime(props) {
             <br/>
              Report a Crime
             <br/>
+            <br/>
             <FormGroup row={false}>
+               <FormControl className={classes.formControl}>
+                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                  <br/>
+                  <br/>
+                  <DateTimePicker
+                    label="DateTimePicker"
+                    inputVariant="outlined"
+                    value={crimeDateTime}
+                    onChange={handleDateTimeChange}
+                  />
+                </MuiPickersUtilsProvider>
+              </FormControl>
+              <br/>
+              <br/>
+              <br/>
               <br/>
               <FormControl className={classes.formControl}>
                 <InputLabel shrink htmlFor="Category">Category</InputLabel>
@@ -128,42 +144,31 @@ function ReportCrime(props) {
                   <option value={"assault"}>Assault</option>
                </Select>
               </FormControl>
-              <br/>
-             <FormControl className={classes.formControl}>
-               <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                <DateTimePicker
-                  label="DateTimePicker"
-                  inputVariant="outlined"
-                  value={crimeDateTime}
-                  onChange={handleDateTimeChange}
+        
+              <FormControl className={classes.formControl}>
+                <TextField
+                  multiline
+                  id="standard-name"
+                  label="Address"
+                  value={crime_address}
+                  onChange={(e) => setCrimeAddress(e.target.value)}
+                  margin="normal"
                 />
-              </MuiPickersUtilsProvider>
-            </FormControl>
+              </FormControl>
+              <FormControl className={classes.formControl}>
+                <TextField
+                  multiline
+                  id="standard-name"
+                  label="Description"
+                  value={crime_description}
+                  onChange={(e) => setCrimeDescription(e.target.value)}
+                  margin="normal"
+                />
+              </FormControl>
+            </FormGroup>
             <br/>
-            <FormControl className={classes.formControl}>
-              <TextField
-                multiline
-                id="standard-name"
-                label="Address"
-                value={crime_address}
-                onChange={(e) => setCrimeAddress(e.target.value)}
-                margin="normal"
-              />
-            </FormControl>
-            <FormControl className={classes.formControl}>
-              <TextField
-                multiline
-                id="standard-name"
-                label="Description"
-                value={crime_description}
-                onChange={(e) => setCrimeDescription(e.target.value)}
-                margin="normal"
-              />
-            </FormControl>
-          </FormGroup>
-          <br/>
-          <Button disabled={false} onClick={() => reportCrime()}>Submit Report</Button>
-        </div>)
+            <Button disabled={false} onClick={() => reportCrime()}>Submit Report</Button>
+          </div>)
 }
 
 export default withRouter(ReportCrime);
