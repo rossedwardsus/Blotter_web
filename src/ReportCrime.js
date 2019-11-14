@@ -32,7 +32,11 @@ import {
   MuiPickersUtilsProvider,
   KeyboardTimePicker,
   KeyboardDatePicker,
+  DateTimePicker
 } from '@material-ui/pickers';
+
+import axios from 'axios';
+import { withRouter } from 'react-router-dom';
 
 
 const useStyles = makeStyles(theme => ({
@@ -47,15 +51,54 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function ReportCrime() {
+function ReportCrime(props) {
   const classes = useStyles();
-  const [selectedDate, setSelectedDate] = useState("")
+  const [crimeDateTime, setCrimeDateTime] = useState(new Date())
+  const [crime_type, setCategoryType] = useState("")
+  const [crime_description, setCrimeDescription] = useState("")
+  const [crimeAddress, setCrimeAddress] = useState("")
 
   const reportCrime = () => {
 
-    alert()
+    //alert(crimeDateTime.toISOString());
+    alert(crimeDateTime.getUTCFullYear() + "-" + (crimeDateTime.getUTCMonth()+1) + "-" + crimeDateTime.getUTCDate() + " " + crimeDateTime.getUTCHours() + ":" + crimeDateTime.getUTCMinutes() + ":" + crimeDateTime.getUTCSeconds());
 
+    //var datetime = "";
+
+
+    axios.post('https://police-api.herokuapp.com/api/blotter/', {
+    //axios.post('http://127.0.0.1:8001/api/blotter/', {
+      crime_type: crime_type,
+      crime_description: crime_description,
+      crime_datetime: crimeDateTime.getUTCFullYear() + "-" + (crimeDateTime.getUTCMonth()+1) + "-" + crimeDateTime.getUTCDate() + " " + crimeDateTime.getUTCHours() + ":" + crimeDateTime.getUTCMinutes() + ":" + crimeDateTime.getUTCSeconds()
+    })
+    .then(function (response) {
+      console.log(response);
+      alert(JSON.stringify(response))
+
+      //props.history.push("/blotter");
+    })
+    .catch(function (error) {
+      console.log(error);
+      alert(error);
+    });
+
+    /*axios({
+      method: 'post',
+      url: 'http://127.0.0.1:8001/api/blotter/',
+      data: {
+        crime_type: crime_type,
+        crime_description: crime_description,
+        crimeDate: crimeDate
+      }
+    });*/
   }
+
+  const handleDateTimeChange = date => {
+    alert(date);
+
+    setCrimeDateTime(date);
+  };
 
   return (<div>
             <br/>
@@ -66,30 +109,22 @@ export default function ReportCrime() {
              Report a Crime
             <br/>
             <FormGroup row={false}>
-              <FormControl className={classes.formControl}>
-                <TextField
-                  id="standard-name"
-                  label="Description"
-                  value={"description"}
-                  onChange={(e) => this.changeDescription(e)}
-                  margin="normal"
-                />
-              </FormControl>
               <br/>
               <FormControl className={classes.formControl}>
                 <InputLabel shrink htmlFor="Category">Category</InputLabel>
                 <Select
                   native
-                  value={"category_name"}
-                  onChange={(e: any) => this.handleCategoryNameChange(e)}
+                  value={crime_type}
+                  onChange={(e: any) => setCategoryType(e.target.value)}
                   inputProps={{
                     name: 'Category',
                     id: 'age-simple',
                   }}
                 >
-                  <option value={10}>Ten</option>
-                  <option value={20}>Twenty</option>
-                  <option value={30}>Thirty</option>
+                  <option value={""}></option>
+                  <option value={"robbery"}>Robbery</option>
+                  <option value={"drug_deal"}>Drug Deal</option>
+                  <option value={"assault"}>Assault</option>
                </Select>
               </FormControl>
               <br/>
@@ -101,27 +136,57 @@ export default function ReportCrime() {
                     format="MM/dd/yyyy"
                     margin="normal"
                     id="date-picker-inline"
-                    label="Date picker inline"
-                    value={selectedDate}
-                    onChange={setSelectedDate}
+                    label=""
+                    value={crimeDateTime}
+                    onChange={handleDateTimeChange}
                     KeyboardButtonProps={{
                       'aria-label': 'change date',
                     }}
                   />
-                </MuiPickersUtilsProvider>
-              </FormControl>
-              <br/>
-              <FormControl className={classes.formControl}>
+                <br/>
+                <KeyboardTimePicker
+                  margin="normal"
+                  id="time-picker"
+                  label=""
+                  value={crimeDateTime}
+                  onChange={handleDateTimeChange}
+                  KeyboardButtonProps={{
+                    'aria-label': 'change time',
+                  }}
+                />
+                <DateTimePicker
+                  label="DateTimePicker"
+                  inputVariant="outlined"
+                  value={crimeDateTime}
+                  onChange={handleDateTimeChange}
+                />
+              </MuiPickersUtilsProvider>
+            </FormControl>
+            <br/>
+            <FormControl className={classes.formControl}>
               <TextField
+                multiline
                 id="standard-name"
-                label="Amount"
-                value={"amount"}
-                onChange={(e) => this.changeAmount(e)}
+                label="Description"
+                value={crime_address}
+                onChange={(e) => setCrimeAddress(e.target.value)}
                 margin="normal"
               />
-              </FormControl>
-            </FormGroup>
-            <br/>
-            <Button disabled={false} onClick={() => this.reportCrime()}>Submit Report</Button>
+            </FormControl>
+            <FormControl className={classes.formControl}>
+              <TextField
+                multiline
+                id="standard-name"
+                label="Description"
+                value={crime_description}
+                onChange={(e) => setCrimeDescription(e.target.value)}
+                margin="normal"
+              />
+            </FormControl>
+          </FormGroup>
+          <br/>
+          <Button disabled={false} onClick={() => reportCrime()}>Submit Report</Button>
         </div>)
 }
+
+export default withRouter(ReportCrime);

@@ -30,6 +30,7 @@ import Tab from '@material-ui/core/Tab';
 
 import Blotter from './Blotter';
 import ReportCrime from './ReportCrime';
+import ViewCrime from './ViewCrime';
 
 
 const useStyles = makeStyles(theme => ({
@@ -58,7 +59,7 @@ function App() {
                 <MenuIcon />
               </IconButton>
               <Typography variant="h6" className={classes.title}>
-                Police
+                Police Blotter
               </Typography>
               <Button color="inherit" component={props => <Link to="/signup" {...props}/>}>Signup</Button>
               <Button color="inherit">Blotter</Button>
@@ -97,7 +98,7 @@ function App() {
                   <Route exact path="/blotter">
                       <Blotter/>
                   </Route>
-                  <Route path="/notes/:note_id" component={Blotter}>
+                  <Route path="/blotter/:crime_id" component={ViewCrime}>
                   </Route>
               </Switch>
             </Grid>

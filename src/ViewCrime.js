@@ -22,9 +22,10 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
-import { Link } from "react-router-dom";
-
 import axios from 'axios';
+
+import { withRouter } from 'react-router-dom';
+
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -38,7 +39,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Blotter() {
+export default function ViewCrime(props) {
 
   const classes = useStyles();
   const [data, setData] = useState([]);
@@ -46,10 +47,10 @@ export default function Blotter() {
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios(
-        //"http://127.0.0.1:8001/api/blotter/"
-        "https://police-api.herokuapp.com/api/blotter/"
+        "http://127.0.0.1:8001/api/blotter/" + props.params.crime_id
+        //"https://police-api.herokuapp.com/api/blotter/"
       );
-      setData(result.data);
+      //setData(result.data);
       //alert(JSON.stringify(result.data))
     };
     fetchData();
@@ -65,24 +66,9 @@ export default function Blotter() {
             <h2>Blotter</h2>
             <br/>
             <br/>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>Crime Datetime</TableCell>
-                  <TableCell>Crime Category</TableCell>
-                  <TableCell align="right">Date</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                  {data.map((report) => 
-                    <TableRow key={"item.description"}>
-                      <TableCell align="right"><Link to={"/blotter/" + report.report_id}>{report.crime_datetime}</Link></TableCell>
-                      <TableCell component="th" scope="row">
-                        {report.crime_category}
-                      </TableCell>
-                    </TableRow>
-                  )}
-              </TableBody>
+            
             </Table>
             </div>)
 }
+
+export default withRouter(ViewCrime);
