@@ -31,6 +31,7 @@ import Tab from '@material-ui/core/Tab';
 import Blotter from './Blotter';
 import ReportCrime from './ReportCrime';
 import ViewCrime from './ViewCrime';
+import Station from './Station';
 
 
 const useStyles = makeStyles(theme => ({
@@ -79,11 +80,14 @@ function App() {
                   <nav>
                     <ul>
                       <li>
-                        <Link to="/blotter">Blotter</Link>
+                        <Link to="/station/1">Santa Monica Police Department</Link>
+                      </li>
+                      <li>
+                        <Link to="/1/blotter">Santa Monica Blotter</Link>
                       </li>
                       <br/>
                       <li>
-                        <Link to="/crime/add">Report a crime</Link>
+                        <Link to="/station/1/crime/add">Report a crime</Link>
                       </li>
                       <br/>
                      </ul>
@@ -92,13 +96,17 @@ function App() {
               </Grid>
             <Grid item md={8}>
                <Switch>
-                  <Route exact path="/crime/add">
+                 
+                  <Route exact path="/station/:station_id/crime/add">
                       <ReportCrime/>
                   </Route>
-                  <Route exact path="/blotter">
+                  <Route exact path="/station/:station_id/blotter">
                       <Blotter/>
                   </Route>
-                  <Route path="/blotter/:crime_id" component={ViewCrime}>
+                  <Route path="/station/:station_id/blotter/:crime_id" component={ViewCrime}>
+                  </Route>
+                   <Route exact path="/station/:station_id">
+                      <Station/>
                   </Route>
               </Switch>
             </Grid>

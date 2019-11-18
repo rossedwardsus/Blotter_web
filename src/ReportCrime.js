@@ -51,12 +51,13 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function ReportCrime(props) {
+export function ReportCrime(props) {
   const classes = useStyles();
   const [crimeDateTime, setCrimeDateTime] = useState(new Date())
   const [crime_type, setCategoryType] = useState("")
   const [crime_description, setCrimeDescription] = useState("")
   const [crime_address, setCrimeAddress] = useState("")
+  const station_id = props.match.params.station_id;
 
   const reportCrime = () => {
 
@@ -77,7 +78,7 @@ function ReportCrime(props) {
       console.log(response);
       //alert(JSON.stringify(response))
 
-      props.history.push("/blotter");
+      props.history.push("/station/" + station_id + "/blotter");
     })
     .catch(function (error) {
       console.log(error);
@@ -111,7 +112,7 @@ function ReportCrime(props) {
             <br/>
             <br/>
             <FormGroup row={false}>
-               <FormControl className={classes.formControl}>
+               <FormControl id="datetime" className={classes.formControl}>
                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
                   <br/>
                   <br/>
@@ -141,13 +142,14 @@ function ReportCrime(props) {
                   <option value={"robbery"}>Robbery</option>
                   <option value={"drug_deal"}>Drug Deal</option>
                   <option value={"assault"}>Assault</option>
+                  <option value={"graphiti"}>Graphiti</option>
                </Select>
               </FormControl>
         
               <FormControl className={classes.formControl}>
                 <TextField
                   multiline
-                  id="standard-name"
+                  id="address"
                   label="Address"
                   value={crime_address}
                   onChange={(e) => setCrimeAddress(e.target.value)}
@@ -157,7 +159,7 @@ function ReportCrime(props) {
               <FormControl className={classes.formControl}>
                 <TextField
                   multiline
-                  id="standard-name"
+                  id="description"
                   label="Description"
                   value={crime_description}
                   onChange={(e) => setCrimeDescription(e.target.value)}
@@ -166,7 +168,7 @@ function ReportCrime(props) {
               </FormControl>
             </FormGroup>
             <br/>
-            <Button disabled={false} onClick={() => reportCrime()}>Submit Report</Button>
+            <Button id="submitReport" disabled={false} onClick={() => reportCrime()}>Submit Report</Button>
           </div>)
 }
 

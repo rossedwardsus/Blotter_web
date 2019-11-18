@@ -38,11 +38,11 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function Blotter(props) {
+function Station(props) {
 
   const classes = useStyles();
   const [data, setData] = useState([]);
-  const {station_id} = props.match.params;
+  const station_id = props.match.params.station_id;
 
   var station_name = "";
 
@@ -71,32 +71,18 @@ function Blotter(props) {
             <br/>
             <br/>
             <br/>
-            <h2>{station_name} Blotter</h2>
+            <h2>Welcome to {station_name} Police Department</h2>
             <br/>
             <br/>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>Crime Datetime</TableCell>
-                  <TableCell>Crime Type</TableCell>
-                  <TableCell align="right">Report Datetime</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                  {data.map((report) => 
-                    <TableRow key={"item.description"}>
-                      <TableCell align="right"><Link to={"/station/" + station_id + "/blotter/" + report.report_id}>{report.crime_datetime}</Link></TableCell>
-                      <TableCell component="th" scope="row">
-                        {report.crime_type}
-                      </TableCell>
-                      <TableCell component="th" scope="row">
-                        {report.report_datetime}
-                      </TableCell>
-                    </TableRow>
-                  )}
-              </TableBody>
-            </Table>
+            Our address is
+            <br/>
+            333 Olympic Dr, Santa Monica, CA 90401
+            <br/>
+            <br/>
+            Report a crime:
+            <br/>
+            <Link to="/station/1/crime/add">Report a crime</Link> 
             </div>)
 }
 
-export default withRouter(Blotter);
+export default withRouter(Station);
