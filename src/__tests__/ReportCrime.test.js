@@ -37,20 +37,10 @@ it('renders without crashing', () => {
   //enzyme mount
   //shallow
 
-  //const wrapper = mount(<Router><ReportCrime /></Router>);
-  //expect(wrapper.find('#datetime')).to.have.lengthOf(1);
-  //const datetime = wrapper.find(MuiPickersUtilsProvider);
-  //console.log(datetime);
-  //expect(wrapper.find(MuiPickersUtilsProvider)).to.have.lengthOf(1);
 });
 
 it('it contains MuiPickersUtilsProvider', () => {
-  //const div = document.createElement('div');
-  //ReactDOM.render(<Provider store={store}><Router><BrowseBudget /></Router></Provider>, div);
-  //ReactDOM.unmountComponentAtNode(div);
-  //enzyme mount
-  //shallow
-
+ 
   const wrapper = mount(<Router><ReportCrime /></Router>);
   //expect(wrapper.find('#datetime')).to.have.lengthOf(1);
   //const datetime = wrapper.find(MuiPickersUtilsProvider);
@@ -62,12 +52,7 @@ it('it contains MuiPickersUtilsProvider', () => {
 });
 
 it('it contains TextField', () => {
-  //const div = document.createElement('div');
-  //ReactDOM.render(<Provider store={store}><Router><BrowseBudget /></Router></Provider>, div);
-  //ReactDOM.unmountComponentAtNode(div);
-  //enzyme mount
-  //shallow
-
+  
   const wrapper = mount(<Router><ReportCrime /></Router>);
   //expect(wrapper.find('#datetime')).to.have.lengthOf(1);
   //const datetime = wrapper.find(MuiPickersUtilsProvider);
@@ -76,12 +61,7 @@ it('it contains TextField', () => {
 });
 
 it('it contains submitReport', () => {
-  //const div = document.createElement('div');
-  //ReactDOM.render(<Provider store={store}><Router><BrowseBudget /></Router></Provider>, div);
-  //ReactDOM.unmountComponentAtNode(div);
-  //enzyme mount
-  //shallow
-
+ 
   const wrapper = mount(<Router><ReportCrime /></Router>);
   //expect(wrapper.find('#datetime')).to.have.lengthOf(1);
   //const datetime = wrapper.find(MuiPickersUtilsProvider);
